@@ -13,21 +13,11 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cors())
 app.use(helmet())
 
-app.get('/', (req, res) => {
-  res.send('Hello, World!')
-})
+const defaultRoutes = require('./routes/default')
+const helloRoutes = require('./routes/hello')
 
-app.get('/contact', (req, res) => {
-  res.send('Contactez-nous!')
-})
-
-app.get('/test/:name', (req, res) => {
-  res.send(`Bonjour ${req.params.name}`)
-})
-
-app.post('/test', (req, res) => {
-  res.send(`Bonjour ${req.body.name}`)
-})
+app.use('/api', defaultRoutes)
+app.use('/api/hello', helloRoutes)
 
 const startServer = port => {
   const server = app
