@@ -3,6 +3,8 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const helmet = require('helmet')
+const swaggerUi = require('swagger-ui-express')
+const swaggerSpec = require('./swagger')
 
 const app = express()
 let port = process.env.APP_PORT || 3000
@@ -18,6 +20,7 @@ const helloRoutes = require('./routes/hello')
 
 app.use('/api', defaultRoutes)
 app.use('/api/hello', helloRoutes)
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 
 const startServer = port => {
   const server = app
