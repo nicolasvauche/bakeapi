@@ -17,9 +17,11 @@ app.use(helmet())
 
 const defaultRoutes = require('./routes/default')
 const helloRoutes = require('./routes/hello')
+const productRoutes = require('./routes/products')
 
 app.use('/api', defaultRoutes)
 app.use('/api/hello', helloRoutes)
+app.use('/api/products', productRoutes)
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 
 const startServer = port => {

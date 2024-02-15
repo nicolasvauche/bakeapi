@@ -1,7 +1,7 @@
 exports.index = (req, res) => {
-  res.send('Bienvenue sur votre API !')
+  res.json({ message: 'Bienvenue sur votre API !' })
 }
 
 exports.contact = (req, res) => {
-  res.send('Contactez-nous')
+  res.json({ message: 'Contactez-nous' })
 }

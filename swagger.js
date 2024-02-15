@@ -4,9 +4,9 @@ const options = {
   definition: {
     openapi: '3.0.0',
     info: {
-      title: 'Mon API à moi',
+      title: 'BakeAPI',
       version: '1.0.0',
-      description: 'Blablabla…'
+      description: 'Mon API de gestion de Boulangerie'
     },
     servers: [
       {
