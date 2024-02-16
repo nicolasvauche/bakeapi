@@ -1,5 +1,5 @@
 module.exports = db => {
-  const Product = require('../models/Product')(db)
+  const Product = require('../models/product')(db)
 
   return {
     getAllProducts: (req, res) => {
