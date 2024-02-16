@@ -15,5 +15,8 @@ module.exports = db => {
    *         description: La liste des produits au format JSON
    */
   router.get('/', productController.getAllProducts)
+
+  router.delete('/:id', productController.deleteProduct)
+  
   return router
 }
