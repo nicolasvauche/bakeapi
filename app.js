@@ -22,7 +22,7 @@ connectDB().then(db => {
   app.use('/api', defaultRoutes)
   app.use('/api/hello', helloRoutes)
   app.use('/api/products', productRoutes(app.locals.db))
+  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 })
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 
 module.exports = app
