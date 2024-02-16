@@ -1,18 +1,19 @@
-const express = require('express')
-const router = express.Router()
-const productsController = require('../controllers/productsController')
+module.exports = db => {
+  const express = require('express')
+  const router = express.Router()
+  const productController = require('../controllers/productController')(db)
 
-/**
- * @openapi
- * /products:
- *   get:
- *     tags:
- *       - Products
- *     description: Retourne la liste des produits
- *     responses:
- *       200:
- *         description: La liste des produits au format JSON
- */
-router.get('/', productsController.getAllProducts)
-
-module.exports = router
+  /**
+   * @openapi
+   * /products:
+   *   get:
+   *     tags:
+   *       - Products
+   *     description: Retourne la liste des produits
+   *     responses:
+   *       200:
+   *         description: La liste des produits au format JSON
+   */
+  router.get('/', productController.getAllProducts)
+  return router
+}

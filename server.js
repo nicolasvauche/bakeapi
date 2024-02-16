@@ -1,28 +1,7 @@
 require('dotenv').config()
-const express = require('express')
-const bodyParser = require('body-parser')
-const cors = require('cors')
-const helmet = require('helmet')
-const swaggerUi = require('swagger-ui-express')
-const swaggerSpec = require('./swagger')
+const app = require('./app')
 
-const app = express()
 let port = process.env.APP_PORT || 3000
-
-app.use(express.static('public'))
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true }))
-app.use(cors())
-app.use(helmet())
-
-const defaultRoutes = require('./routes/default')
-const helloRoutes = require('./routes/hello')
-const productRoutes = require('./routes/products')
-
-app.use('/api', defaultRoutes)
-app.use('/api/hello', helloRoutes)
-app.use('/api/products', productRoutes)
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 
 const startServer = port => {
   const server = app
