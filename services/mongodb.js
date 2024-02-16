@@ -11,10 +11,10 @@ const connectDB = async () => {
   try {
     const client = await MongoClient.connect(dbURI)
     dbConnection = client.db()
-    console.log('Connexion à MongoDB réussie')
+    console.log('MongoDB connection is OK')
     return dbConnection
   } catch (err) {
-    throw new Error('Échec de la connexion à MongoDB')
+    throw new Error('MongoDB connection error')
   }
 }
 
