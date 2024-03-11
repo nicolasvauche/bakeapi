@@ -10,6 +10,7 @@ const app = express()
 const defaultRoutes = require('./routes/default')
 const helloRoutes = require('./routes/hello')
 const productRoutes = require('./routes/products')
+const userRoutes = require('./routes/users')
 
 app.use(express.static('public'))
 app.use(bodyParser.json())
@@ -22,6 +23,7 @@ connectDB().then(db => {
   app.use('/api', defaultRoutes)
   app.use('/api/hello', helloRoutes)
   app.use('/api/products', productRoutes(app.locals.db))
+  app.use('/api/users', userRoutes(app.locals.db))
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 })
 
