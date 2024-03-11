@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cors())
 app.use(helmet())
 
-connectDB().then(db => {
+connectDB().then(({ db }) => {
   app.locals.db = db
   app.use('/api', defaultRoutes)
   app.use('/api/hello', helloRoutes)

@@ -13,13 +13,13 @@ const connectDB = async () => {
       serverApi: {
         version: ServerApiVersion.v1,
         strict: true,
-        deprecationErrors: true,
+        deprecationErrors: true
       }
     })
     const client = await mongoClient.connect(dbURI)
     dbConnection = client.db()
     console.log('MongoDB connection is OK')
-    return dbConnection
+    return { db: dbConnection, client: client }
   } catch (err) {
     throw new Error(`MongoDB connection error: ${err}`)
   }
