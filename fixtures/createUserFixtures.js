@@ -3,26 +3,26 @@ const bcrypt = require('bcrypt')
 const connectDB = require('../services/mongodb')
 const saltRounds = 10
 
+const users = [
+  {
+    email: 'admin@test.com',
+    password: 'admin',
+    role: 'ROLE_ADMIN',
+    bakeryName: ''
+  },
+  {
+    email: 'user@test.com',
+    password: 'user',
+    role: 'ROLE_USER',
+    bakeryName: 'Ma Boulangerie Test'
+  }
+]
+
 async function createUsers () {
   const { db, client } = await connectDB()
   try {
     const collection = db.collection('users')
     await collection.deleteMany({})
-
-    const users = [
-      {
-        email: 'admin@test.com',
-        password: 'admin',
-        role: 'ROLE_ADMIN',
-        bakeryName: ''
-      },
-      {
-        email: 'user@test.com',
-        password: 'user',
-        role: 'ROLE_USER',
-        bakeryName: 'Ma Boulangerie Test'
-      }
-    ]
 
     const userInsertions = users.map(async user => {
       const hashedPassword = await bcrypt.hash(user.password, saltRounds)
