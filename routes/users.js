@@ -6,6 +6,56 @@ module.exports = db => {
   /**
    * @openapi
    * /users:
+   *   get:
+   *     tags:
+   *       - Users
+   *     summary: Liste tous les utilisateurs
+   *     description: Retourne la liste des utilisateurs
+   *     responses:
+   *       200:
+   *         description: La liste des utilisateurs au format JSON
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: array
+   *               items:
+   *                 type: object
+   *                 properties:
+   *                   _id:
+   *                     type: string
+   *                     description: L'identifiant de l'utilisateur
+   *                   email:
+   *                     type: string
+   *                     description: L'adresse e-mail de l'utilisateur
+   *                   role:
+   *                     type: string
+   *                     description: Le rôle de l'utilisateur
+   *                   bakeryName:
+   *                     type: string
+   *                     description: Le nom de la boulangerie de l'utilisateur
+   *             examples:
+   *               userList:
+   *                 summary: Exemple de liste d'utilisateurs
+   *                 value: [
+   *                   {
+   *                     "_id": "65cf462667ad658ed0e392c3",
+   *                     "email": "admin@test.tld",
+   *                     "role": "ROLE_ADMIN",
+   *                     "bakeryName": ""
+   *                   },
+   *                   {
+   *                     "_id": "54bf662436trd658er3e342a",
+   *                     "email": "user@test.tld",
+   *                     "role": "ROLE_USER",
+   *                     "bakeryName": "Ma Boulangerie Test"
+   *                   }
+   *                 ]
+   */
+  router.get('/', userController.getAllUsers)
+
+  /**
+   * @openapi
+   * /users:
    *   post:
    *     tags:
    *       - Users
@@ -46,10 +96,10 @@ module.exports = db => {
    *                   type: string
    *                   description: L'adresse e-mail de l'utilisateur
    *                   example: test@test.tld
-   *                 password:
-   *                   type: string
-   *                   description: Le lot de passe de l'utilisateur
-   *                   example: XXXXXXXX
+   *                 role:
+   *                     type: string
+   *                     description: Le rôle de l'utilisateur
+   *                     example: ROLE_USER
    *                 bakeryName:
    *                   type: string
    *                   description: Le nom de la boulangerie
