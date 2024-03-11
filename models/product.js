@@ -8,7 +8,7 @@ module.exports = db => {
       return collection.find().toArray()
     },
     findById: async id => {
-      return collection.
+      return collection.findOne({ _id: new ObjectId(String(id)) })
     },
     add: async productData => {
       return collection.insertOne(productData)

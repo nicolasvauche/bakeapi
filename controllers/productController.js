@@ -8,12 +8,19 @@ module.exports = db => {
         .catch(error => res.status(500).send(error))
     },
     getProduct: (req, res) => {
-        Product.findById(id)
+      const { id } = req.params
+      Product.findById(id)
         .then(result => {
-
+          if (!result) {
+            return res.status(404).json({ error: 'Product not found' })
+          }
+          res.status(200).json(result)
         })
-        .catch({
-          
+        .catch(error => {
+          console.error('Internal server error:', error)
+          res
+            .status(500)
+            .json({ error: error.message || 'Internal server error' })
         })
     },
     addProduct: (req, res) => {
@@ -35,7 +42,9 @@ module.exports = db => {
           if (result.matchedCount === 0) {
             return res.status(404).json({ error: 'Product not found' })
           }
-          res.status(200).json(productData)
+          Product.findById(id).then(result => {
+            res.status(200).json(result)
+          })
         })
         .catch(error => {
           console.error('Internal server error:', error)
