@@ -1,4 +1,4 @@
-const { MongoClient } = require('mongodb')
+const { MongoClient, ServerApiVersion } = require('mongodb')
 const dbURI = process.env.MONGO_URI
 
 let dbConnection
@@ -9,12 +9,19 @@ const connectDB = async () => {
   }
 
   try {
-    const client = await MongoClient.connect(dbURI)
+    const mongoClient = new MongoClient(dbURI, {
+      serverApi: {
+        version: ServerApiVersion.v1,
+        strict: true,
+        deprecationErrors: true,
+      }
+    })
+    const client = await mongoClient.connect(dbURI)
     dbConnection = client.db()
     console.log('MongoDB connection is OK')
     return dbConnection
   } catch (err) {
-    throw new Error('MongoDB connection error')
+    throw new Error(`MongoDB connection error: ${err}`)
   }
 }
 
