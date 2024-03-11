@@ -10,9 +10,7 @@ module.exports = db => {
     addProduct: (req, res) => {
       const productData = req.body
       Product.add(productData)
-        .then(result =>
-          res.status(201).json({ id: result.insertedId, ...productData })
-        )
+        .then(result => res.status(201).json(productData))
         .catch(error => {
           console.error('Internal server error:', error)
           res
