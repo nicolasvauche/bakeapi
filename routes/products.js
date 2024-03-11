@@ -14,9 +14,96 @@ module.exports = db => {
    *     responses:
    *       200:
    *         description: La liste des produits au format JSON
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: array
+   *               items:
+   *                 type: object
+   *                 properties:
+   *                   _id:
+   *                     type: string
+   *                     description: L'identifiant du produit
+   *                   name:
+   *                     type: string
+   *                     description: Le nom du produit
+   *                   price:
+   *                     type: number
+   *                     description: Le prix du produit
+   *                   status:
+   *                     type: string
+   *                     description: Le statut du produit
+   *             examples:
+   *               productList:
+   *                 summary: Exemple de liste de produits
+   *                 value: [
+   *                   {
+   *                     "_id": "65cf462667ad658ed0e392c3",
+   *                     "name": "Baguette rustique",
+   *                     "price": 1.92,
+   *                     "status": "En vente"
+   *                   },
+   *                   {
+   *                     "_id": "54bf662436trd658er3e342a",
+   *                     "name": "Croissant au beurre",
+   *                     "price": 0.69,
+   *                     "status": "Invendu"
+   *                   }
+   *                 ]
    */
   router.get('/', productController.getAllProducts)
 
+  /**
+   * @openapi
+   * /products/{id}:
+   *   get:
+   *     tags:
+   *       - Products
+   *     summary: Détails d'un produit
+   *     description: Retourne les détails d'un produit
+   *     parameters:
+   *       - in: path
+   *         name: id
+   *         required: true
+   *         description: ID du produit à rechercher
+   *         schema:
+   *           type: string
+   *     responses:
+   *       200:
+   *         description: Les détails d'un produit au format JSON
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 _id:
+   *                   type: string
+   *                   description: L'identifiant du produit
+   *                   example: 65cf462667ad658ed0e392c3
+   *                 name:
+   *                   type: string
+   *                   description: Le nom du produit
+   *                   example: Baguette rustique
+   *                 price:
+   *                   type: number
+   *                   description: Le prix du produit
+   *                   example: 1.92
+   *                 status:
+   *                   type: string
+   *                   description: Le statut du produit
+   *                   example: En vente
+   *       404:
+   *         description: Produit non trouvé
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 error:
+   *                   type: string
+   *                   description: Le message d'erreur
+   *                   example: Product not found
+   */
   router.get('/:id', productController.getProduct)
 
   /**
@@ -72,6 +159,14 @@ module.exports = db => {
    *                   example: En vente
    *       500:
    *         description: Erreur serveur
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 error:
+   *                   type: string
+   *                   description: Le message d'erreur
    */
   router.post('/', productController.addProduct)
 
@@ -135,10 +230,27 @@ module.exports = db => {
    *                   example: Invendu
    *       404:
    *         description: Produit non trouvé
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 error:
+   *                   type: string
+   *                   description: Le message d'erreur
+   *                   example: Product not found
    *       500:
    *         description: Erreur serveur
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 error:
+   *                   type: string
+   *                   description: Le message d'erreur
    */
-  router.put('/:id', productController.editProduct) // Nouvelle route pour la mise à jour d'un produit
+  router.put('/:id', productController.editProduct)
 
   /**
    * @openapi
@@ -158,10 +270,36 @@ module.exports = db => {
    *     responses:
    *       200:
    *         description: Produit {id} supprimé avec succès
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 message:
+   *                   type: string
+   *                   description: Le message de succès après suppression
+   *                   example: Product {id} was successfully deleted
    *       404:
    *         description: Produit non trouvé
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 error:
+   *                   type: string
+   *                   description: Le message d'erreur
+   *                   example: Product not found
    *       500:
    *         description: Erreur serveur
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 error:
+   *                   type: string
+   *                   description: Le message d'erreur
    */
   router.delete('/:id', productController.deleteProduct)
 
