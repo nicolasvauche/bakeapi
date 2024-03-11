@@ -34,6 +34,14 @@ async function createUsers () {
     results.forEach(result => {
       console.log(`The user id: ${result.insertedId} was created successfully`)
     })
+
+    console.log(
+      results.length > 0
+        ? results.length > 1
+          ? results.length + ' users have been successfully created'
+          : results.length + ' user has been successfully created'
+        : 'No user was created because the fixtures were empty'
+    )
   } catch (err) {
     console.error('An error occurred:', err)
   } finally {
