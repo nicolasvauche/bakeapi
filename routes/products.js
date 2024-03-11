@@ -17,6 +17,8 @@ module.exports = db => {
    */
   router.get('/', productController.getAllProducts)
 
+  router.get('/:id', productController.getProduct)
+
   /**
    * @openapi
    * /products:

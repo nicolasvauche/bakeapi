@@ -7,6 +7,15 @@ module.exports = db => {
         .then(results => res.status(200).json(results))
         .catch(error => res.status(500).send(error))
     },
+    getProduct: (req, res) => {
+        Product.findById(id)
+        .then(result => {
+
+        })
+        .catch({
+          
+        })
+    },
     addProduct: (req, res) => {
       const productData = req.body
       Product.add(productData)
