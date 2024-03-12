@@ -3,6 +3,7 @@ module.exports = db => {
   const router = express.Router()
   const userController = require('../controllers/userController')(db)
   const auth = require('../middlewares/auth')
+  const admin = require('../middlewares/admin')
 
   /**
    * @openapi
@@ -52,7 +53,7 @@ module.exports = db => {
    *                   }
    *                 ]
    */
-  router.get('/', auth, userController.getAllUsers)
+  router.get('/', auth, admin, userController.getAllUsers)
 
   /**
    * @openapi

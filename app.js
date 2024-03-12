@@ -12,6 +12,7 @@ const helloRoutes = require('./routes/hello')
 const productRoutes = require('./routes/products')
 const userRoutes = require('./routes/users')
 const authRoutes = require('./routes/auth')
+const profileRoutes = require('./routes/profile')
 
 app.use(express.static('public'))
 app.use(bodyParser.json())
@@ -25,7 +26,8 @@ connectDB().then(({ db }) => {
   app.use('/api/hello', helloRoutes)
   app.use('/api/products', productRoutes(app.locals.db))
   app.use('/api/users', userRoutes(app.locals.db))
-  app.use('/api', authRoutes(app.locals.db))
+  app.use('/api/login', authRoutes(app.locals.db))
+  app.use('/api/profile', profileRoutes(app.locals.db))
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 })
 

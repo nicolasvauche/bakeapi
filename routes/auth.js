@@ -71,7 +71,7 @@ module.exports = db => {
    *                   type: string
    *                   description: Le message d'erreur
    */
-  router.post('/login', authController.login)
+  router.post('/', authController.login)
 
   return router
 }

@@ -11,7 +11,7 @@ module.exports = db => {
       if (user && (await bcrypt.compare(password, user.password))) {
         const SECRET_KEY = process.env.JWT_SECRET
         const token = jwt.sign(
-          { userId: user._id, email: user.email },
+          { _id: user._id, email: user.email, role: user.role },
           SECRET_KEY,
           { expiresIn: '24h' }
         )
