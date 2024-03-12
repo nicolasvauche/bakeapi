@@ -55,6 +55,55 @@ module.exports = db => {
 
   /**
    * @openapi
+   * /users/{id}:
+   *   get:
+   *     tags:
+   *       - Users
+   *     summary: Détails d'un utilisateur
+   *     description: Retourne les détails d'un utilisateur
+   *     parameters:
+   *       - in: path
+   *         name: id
+   *         required: true
+   *         description: ID de l'utilisateur à rechercher
+   *         schema:
+   *           type: string
+   *     responses:
+   *       200:
+   *         description: Les détails d'un utilisateur au format JSON
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 _id:
+   *                   type: string
+   *                   description: L'identifiant de l'utilisateur
+   *                 email:
+   *                   type: string
+   *                   description: L'adresse e-mail de l'utilisateur
+   *                 role:
+   *                   type: string
+   *                   description: Le rôle de l'utilisateur
+   *                 bakeryName:
+   *                   type: string
+   *                   description: Le nom de la boulangerie de l'utilisateur
+   *       404:
+   *         description: Utilisateur non trouvé
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 error:
+   *                   type: string
+   *                   description: Le message d'erreur
+   *                   example: User not found
+   */
+  router.get('/:id', userController.getUser)
+
+  /**
+   * @openapi
    * /users:
    *   post:
    *     tags:

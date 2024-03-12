@@ -7,8 +7,20 @@ module.exports = db => {
     findAll: async () => {
       return collection.find().toArray()
     },
+    findById: async id => {
+      return collection.findOne({ _id: new ObjectId(String(id)) })
+    },
     add: async userData => {
       return collection.insertOne(userData)
+    },
+    updateById: async (id, userData) => {
+      return collection.updateOne(
+        { _id: new ObjectId(String(id)) },
+        { $set: userData }
+      )
+    },
+    deleteById: async id => {
+      return collection.deleteOne({ _id: new ObjectId(String(id)) })
     }
   }
 }
