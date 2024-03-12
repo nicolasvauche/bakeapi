@@ -2,6 +2,7 @@ module.exports = db => {
   const express = require('express')
   const router = express.Router()
   const userController = require('../controllers/userController')(db)
+  const auth = require('../middlewares/auth')
 
   /**
    * @openapi
@@ -51,7 +52,7 @@ module.exports = db => {
    *                   }
    *                 ]
    */
-  router.get('/', userController.getAllUsers)
+  router.get('/', auth, userController.getAllUsers)
 
   /**
    * @openapi
@@ -100,7 +101,7 @@ module.exports = db => {
    *                   description: Le message d'erreur
    *                   example: User not found
    */
-  router.get('/:id', userController.getUser)
+  router.get('/:id', auth, userController.getUser)
 
   /**
    * @openapi
@@ -164,7 +165,7 @@ module.exports = db => {
    *                   type: string
    *                   description: Le message d'erreur
    */
-  router.post('/', userController.addUser)
+  router.post('/', auth, userController.addUser)
 
   return router
 }

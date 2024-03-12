@@ -25,7 +25,7 @@ connectDB().then(({ db }) => {
   app.use('/api/hello', helloRoutes)
   app.use('/api/products', productRoutes(app.locals.db))
   app.use('/api/users', userRoutes(app.locals.db))
-  app.use('/api/auth', authRoutes(app.locals.db))
+  app.use('/api', authRoutes(app.locals.db))
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 })
 
