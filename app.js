@@ -11,6 +11,7 @@ const defaultRoutes = require('./routes/default')
 const helloRoutes = require('./routes/hello')
 const productRoutes = require('./routes/products')
 const userRoutes = require('./routes/users')
+const authRoutes = require('./routes/auth')
 
 app.use(express.static('public'))
 app.use(bodyParser.json())
@@ -24,6 +25,7 @@ connectDB().then(({ db }) => {
   app.use('/api/hello', helloRoutes)
   app.use('/api/products', productRoutes(app.locals.db))
   app.use('/api/users', userRoutes(app.locals.db))
+  app.use('/api/auth', authRoutes(app.locals.db))
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 })
 

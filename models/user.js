@@ -10,6 +10,9 @@ module.exports = db => {
     findById: async id => {
       return collection.findOne({ _id: new ObjectId(String(id)) })
     },
+    findByEmail: async email => {
+      return collection.findOne({ email: email })
+    },
     add: async userData => {
       return collection.insertOne(userData)
     },
