@@ -56,7 +56,51 @@ module.exports = db => {
 
   /**
    * @openapi
-   * /products/{id}:
+   * /products/user/{id}:
+   *   get:
+   *     tags:
+   *       - Products
+   *     summary: Liste tous les produits d'un utilisateur
+   *     description: Retourne la liste des produits d'un utilisateur
+   *     parameters:
+   *       - in: path
+   *         name: id
+   *         required: true
+   *         description: ID de l'utilisateur
+   *         schema:
+   *           type: string
+   *     responses:
+   *       200:
+   *         description: La liste des produits au format JSON
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: array
+   *               items:
+   *                 type: object
+   *                 properties:
+   *                   _id:
+   *                     type: string
+   *                     description: L'identifiant du produit
+   *                     example: 65cf462667ad658ed0e392c3
+   *                   name:
+   *                     type: string
+   *                     description: Le nom du produit
+   *                     example: Baguette rustique
+   *                   price:
+   *                     type: number
+   *                     description: Le prix du produit
+   *                     example: 1.92
+   *                   status:
+   *                     type: string
+   *                     description: Le statut du produit
+   *                     example: En vente
+   */
+  router.get('/user/:id', productController.getUserProducts)
+
+  /**
+   * @openapi
+   * /products/details/{id}:
    *   get:
    *     tags:
    *       - Products
@@ -105,7 +149,7 @@ module.exports = db => {
    *                   description: Le message d'erreur
    *                   example: Product not found
    */
-  router.get('/:id', productController.getProduct)
+  router.get('/details/:id', productController.getProduct)
 
   /**
    * @openapi

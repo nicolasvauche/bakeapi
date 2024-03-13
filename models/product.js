@@ -7,6 +7,9 @@ module.exports = db => {
     findAll: async () => {
       return collection.find().toArray()
     },
+    findByUserId: async userId => {
+      return collection.find({ userId: new ObjectId(String(userId)) }).toArray()
+    },
     findById: async id => {
       return collection.findOne({ _id: new ObjectId(String(id)) })
     },

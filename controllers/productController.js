@@ -7,6 +7,19 @@ module.exports = db => {
         .then(results => res.status(200).json(results))
         .catch(error => res.status(500).send(error))
     },
+    getUserProducts: (req, res) => {
+      const { id } = req.params
+      Product.findByUserId(id)
+        .then(result => {
+          res.status(200).json(result)
+        })
+        .catch(error => {
+          console.error('Internal server error:', error)
+          res
+            .status(500)
+            .json({ error: error.message || 'Internal server error' })
+        })
+    },
     getProduct: (req, res) => {
       const { id } = req.params
       Product.findById(id)

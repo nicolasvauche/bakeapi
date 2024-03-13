@@ -28,7 +28,17 @@ async function createFixtures () {
   try {
     const hashedUsers = await hashPasswords(users)
     await insertDocuments(db, 'users', hashedUsers)
-    await insertDocuments(db, 'products', products)
+
+    const user = await db
+      .collection('users')
+      .findOne({ email: 'user@test.com' })
+    const userId = user._id
+
+    const productsWithUserId = products.map(product => ({
+      ...product,
+      userId: userId
+    }))
+    await insertDocuments(db, 'products', productsWithUserId)
     console.log('All fixtures have been successfully created')
   } catch (error) {
     console.error('An error occurred creating fixtures:', error)

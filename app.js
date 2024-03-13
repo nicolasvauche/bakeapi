@@ -8,7 +8,6 @@ const swaggerSpec = require('./swagger')
 
 const app = express()
 const defaultRoutes = require('./routes/default')
-const helloRoutes = require('./routes/hello')
 const productRoutes = require('./routes/products')
 const userRoutes = require('./routes/users')
 const authRoutes = require('./routes/auth')
@@ -23,7 +22,6 @@ app.use(helmet())
 connectDB().then(({ db }) => {
   app.locals.db = db
   app.use('/api', defaultRoutes)
-  app.use('/api/hello', helloRoutes)
   app.use('/api/products', productRoutes(app.locals.db))
   app.use('/api/users', userRoutes(app.locals.db))
   app.use('/api/login', authRoutes(app.locals.db))

@@ -1,5 +1,6 @@
 module.exports = db => {
   const User = require('../models/user')(db)
+  const Product = require('../models/product')(db)
 
   return {
     getProfile: (req, res) => {
@@ -19,6 +20,19 @@ module.exports = db => {
             .status(500)
             .json({ error: error.message || 'Internal server error' })
         })
-    }
+    },
+    getProducts: (req, res) => {
+      const { _id } = req.userInfos
+      Product.findByUserId(_id)
+        .then(result => {
+          res.status(200).json(result)
+        })
+        .catch(error => {
+          console.error('Internal server error:', error)
+          res
+            .status(500)
+            .json({ error: error.message || 'Internal server error' })
+        })
+    },
   }
 }
