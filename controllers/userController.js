@@ -78,9 +78,15 @@ module.exports = db => {
           .json({ error: error.message || 'Internal server error' })
       }
     },
-    editUser: (req, res) => {
+    editUser: async (req, res) => {
       const { id } = req.params
       const userData = req.body
+
+      if (userData.password) {
+        const hashedPassword = await bcrypt.hash(userData.password, saltRounds)
+        userData.password = hashedPassword
+      }
+
       User.updateById(id, userData)
         .then(result => {
           if (result.matchedCount === 0) {

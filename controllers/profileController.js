@@ -1,4 +1,6 @@
 module.exports = db => {
+  const bcrypt = require('bcrypt')
+  const saltRounds = 10
   const User = require('../models/user')(db)
   const Product = require('../models/product')(db)
 
@@ -30,12 +32,18 @@ module.exports = db => {
             .json({ error: error.message || 'Internal server error' })
         })
     },
-    editProfile: (req, res) => {
+    editProfile: async (req, res) => {
       const { _id } = req.userInfos
       const userData = req.body
+
+      if (userData.password) {
+        const hashedPassword = await bcrypt.hash(userData.password, saltRounds)
+        userData.password = hashedPassword
+      }
+
       User.updateById(_id, userData)
         .then(result => {
-          User.findById(id).then(result => {
+          User.findById(_id).then(result => {
             const { password, ...user } = result
             res.status(200).json(user)
           })
@@ -53,7 +61,7 @@ module.exports = db => {
         .then(result => {
           res
             .status(200)
-            .json({ message: `User ${id} was successfully deleted` })
+            .json({ message: `User ${_id} was successfully deleted` })
         })
         .catch(error => {
           console.error('Internal server error:', error)
