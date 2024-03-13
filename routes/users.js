@@ -4,6 +4,7 @@ module.exports = db => {
   const userController = require('../controllers/userController')(db)
   const auth = require('../middlewares/auth')
   const admin = require('../middlewares/admin')
+  const sanitize = require('../middlewares/sanitize')
 
   /**
    * @openapi
@@ -172,7 +173,7 @@ module.exports = db => {
    *                   type: string
    *                   description: Le message d'erreur
    */
-  router.post('/', auth, admin, userController.addUser)
+  router.post('/', auth, admin, sanitize, userController.addUser)
 
   /**
    * @openapi
@@ -252,7 +253,7 @@ module.exports = db => {
    *                   type: string
    *                   description: Le message d'erreur
    */
-  router.put('/:id', auth, admin, userController.editUser)
+  router.put('/:id', auth, admin, sanitize, userController.editUser)
 
   /**
    * @openapi

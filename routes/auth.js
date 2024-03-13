@@ -2,6 +2,7 @@ module.exports = db => {
   const express = require('express')
   const router = express.Router()
   const authController = require('../controllers/authController')(db)
+  const sanitize = require('../middlewares/sanitize')
 
   /**
    * @openapi
@@ -71,7 +72,7 @@ module.exports = db => {
    *                   type: string
    *                   description: Le message d'erreur
    */
-  router.post('/', authController.login)
+  router.post('/', sanitize, authController.login)
 
   return router
 }

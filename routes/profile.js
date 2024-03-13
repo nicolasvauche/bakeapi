@@ -3,6 +3,7 @@ module.exports = db => {
   const router = express.Router()
   const profileController = require('../controllers/profileController')(db)
   const auth = require('../middlewares/auth')
+  const sanitize = require('../middlewares/sanitize')
 
   /**
    * @openapi
@@ -126,7 +127,7 @@ module.exports = db => {
    *                   type: string
    *                   description: Le message d'erreur
    */
-  router.put('/', auth, profileController.editProfile)
+  router.put('/', auth, sanitize, profileController.editProfile)
 
   /**
    * @openapi
