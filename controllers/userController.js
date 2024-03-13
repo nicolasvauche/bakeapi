@@ -77,6 +77,44 @@ module.exports = db => {
           .status(500)
           .json({ error: error.message || 'Internal server error' })
       }
+    },
+    editUser: (req, res) => {
+      const { id } = req.params
+      const userData = req.body
+      User.updateById(id, userData)
+        .then(result => {
+          if (result.matchedCount === 0) {
+            return res.status(404).json({ error: 'User not found' })
+          }
+          User.findById(id).then(result => {
+            const { password, ...user } = result
+            res.status(200).json(user)
+          })
+        })
+        .catch(error => {
+          console.error('Internal server error:', error)
+          res
+            .status(500)
+            .json({ error: error.message || 'Internal server error' })
+        })
+    },
+    deleteUser: (req, res) => {
+      const { id } = req.params
+      User.deleteById(id)
+        .then(result => {
+          if (result.deletedCount === 0) {
+            return res.status(404).json({ error: 'User not found' })
+          }
+          res
+            .status(200)
+            .json({ message: `User ${id} was successfully deleted` })
+        })
+        .catch(error => {
+          console.error('Internal server error:', error)
+          res
+            .status(500)
+            .json({ error: error.message || 'Internal server error' })
+        })
     }
   }
 }

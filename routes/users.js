@@ -106,7 +106,7 @@ module.exports = db => {
    *                   description: Le message d'erreur
    *                   example: User not found
    */
-  router.get('/:id', auth, userController.getUser)
+  router.get('/:id', auth, admin, userController.getUser)
 
   /**
    * @openapi
@@ -172,7 +172,140 @@ module.exports = db => {
    *                   type: string
    *                   description: Le message d'erreur
    */
-  router.post('/', auth, userController.addUser)
+  router.post('/', auth, admin, userController.addUser)
+
+  /**
+   * @openapi
+   * /users/{id}:
+   *   put:
+   *     security:
+   *       - BearerAuth: []
+   *     tags:
+   *       - Users
+   *     summary: Met à jour un utilisateur existant par son ID
+   *     description: Met à jour les informations d'un utilisateur existant dans la base de données.
+   *     parameters:
+   *       - in: path
+   *         name: id
+   *         required: true
+   *         description: ID de l'utilisateur à mettre à jour
+   *         schema:
+   *           type: string
+   *     requestBody:
+   *       required: true
+   *       content:
+   *         application/json:
+   *           schema:
+   *             type: object
+   *             properties:
+   *               email:
+   *                 type: string
+   *                 description: L'adresse e-mail de l'utilisateur
+   *                 example: test@test.com
+   *               password:
+   *                 type: string
+   *                 description: Le mot de passe de l'utilisateur
+   *                 example: XXXXXXXX
+   *               bakeryName:
+   *                 type: string
+   *                 description: Le nom de la boulangerie de l'utilisateur
+   *                 example: Ma Boulangerie Test
+   *     responses:
+   *       200:
+   *         description: Utilisateur mis à jour avec succès
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 _id:
+   *                   type: string
+   *                   description: L'identifiant de l'utilisateur
+   *                   example: 65cf462667ad658ed0e392c3
+   *                 email:
+   *                   type: string
+   *                   description: L'adresse e-mail de l'utilisateur
+   *                   example: test@test.com
+   *                 bakeryName:
+   *                   type: string
+   *                   description: Le nom de la boulangerie de l'utilisateur
+   *                   example: Ma Boulangerie Test
+   *       404:
+   *         description: Utilisateur non trouvé
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 error:
+   *                   type: string
+   *                   description: Le message d'erreur
+   *                   example: User not found
+   *       500:
+   *         description: Erreur serveur
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 error:
+   *                   type: string
+   *                   description: Le message d'erreur
+   */
+  router.put('/:id', auth, admin, userController.editUser)
+
+  /**
+   * @openapi
+   * /users/{id}:
+   *   delete:
+   *     security:
+   *       - BearerAuth: []
+   *     tags:
+   *       - Users
+   *     summary: Supprime un utilisateur par son ID
+   *     description: Supprime un utilisateur par son ID
+   *     parameters:
+   *       - in: path
+   *         name: id
+   *         required: true
+   *         description: ID de l'utilisateur à supprimer
+   *         schema:
+   *           type: string
+   *     responses:
+   *       200:
+   *         description: Utilisateur {id} supprimé avec succès
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 message:
+   *                   type: string
+   *                   description: Le message de succès après suppression
+   *                   example: User {id} was successfully deleted
+   *       404:
+   *         description: Utilisateur non trouvé
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 error:
+   *                   type: string
+   *                   description: Le message d'erreur
+   *                   example: User not found
+   *       500:
+   *         description: Erreur serveur
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 error:
+   *                   type: string
+   *                   description: Le message d'erreur
+   */
+  router.delete('/:id', auth, admin, userController.deleteUser)
 
   return router
 }

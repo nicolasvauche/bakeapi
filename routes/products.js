@@ -56,6 +56,59 @@ module.exports = db => {
 
   /**
    * @openapi
+   * /products/details/{id}:
+   *   get:
+   *     tags:
+   *       - Products
+   *     summary: Détails d'un produit
+   *     description: Retourne les détails d'un produit
+   *     parameters:
+   *       - in: path
+   *         name: id
+   *         required: true
+   *         description: ID du produit à rechercher
+   *         schema:
+   *           type: string
+   *     responses:
+   *       200:
+   *         description: Les détails d'un produit au format JSON
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 _id:
+   *                   type: string
+   *                   description: L'identifiant du produit
+   *                   example: 65cf462667ad658ed0e392c3
+   *                 name:
+   *                   type: string
+   *                   description: Le nom du produit
+   *                   example: Baguette rustique
+   *                 price:
+   *                   type: number
+   *                   description: Le prix du produit
+   *                   example: 1.92
+   *                 status:
+   *                   type: string
+   *                   description: Le statut du produit
+   *                   example: En vente
+   *       404:
+   *         description: Produit non trouvé
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 error:
+   *                   type: string
+   *                   description: Le message d'erreur
+   *                   example: Product not found
+   */
+  router.get('/details/:id', productController.getProduct)
+
+  /**
+   * @openapi
    * /products/user/{id}:
    *   get:
    *     tags:
@@ -108,59 +161,6 @@ module.exports = db => {
    *                   example: User not found
    */
   router.get('/user/:id', productController.getUserProducts)
-
-  /**
-   * @openapi
-   * /products/details/{id}:
-   *   get:
-   *     tags:
-   *       - Products
-   *     summary: Détails d'un produit
-   *     description: Retourne les détails d'un produit
-   *     parameters:
-   *       - in: path
-   *         name: id
-   *         required: true
-   *         description: ID du produit à rechercher
-   *         schema:
-   *           type: string
-   *     responses:
-   *       200:
-   *         description: Les détails d'un produit au format JSON
-   *         content:
-   *           application/json:
-   *             schema:
-   *               type: object
-   *               properties:
-   *                 _id:
-   *                   type: string
-   *                   description: L'identifiant du produit
-   *                   example: 65cf462667ad658ed0e392c3
-   *                 name:
-   *                   type: string
-   *                   description: Le nom du produit
-   *                   example: Baguette rustique
-   *                 price:
-   *                   type: number
-   *                   description: Le prix du produit
-   *                   example: 1.92
-   *                 status:
-   *                   type: string
-   *                   description: Le statut du produit
-   *                   example: En vente
-   *       404:
-   *         description: Produit non trouvé
-   *         content:
-   *           application/json:
-   *             schema:
-   *               type: object
-   *               properties:
-   *                 error:
-   *                   type: string
-   *                   description: Le message d'erreur
-   *                   example: Product not found
-   */
-  router.get('/details/:id', productController.getProduct)
 
   /**
    * @openapi
