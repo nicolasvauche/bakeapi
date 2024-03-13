@@ -9,7 +9,13 @@ const users = [
     email: 'user@test.com',
     password: 'user',
     role: 'ROLE_USER',
-    bakeryName: 'Ma Boulangerie Test'
+    bakeryName: 'Au Bon Pain'
+  },
+  {
+    email: 'user2@test.com',
+    password: 'user',
+    role: 'ROLE_USER',
+    bakeryName: 'Le Croissant Doré'
   }
 ]
 
