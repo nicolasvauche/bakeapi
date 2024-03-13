@@ -1,5 +1,6 @@
 module.exports = db => {
   const Product = require('../models/product')(db)
+  const User = require('../models/user')(db)
 
   return {
     getAllProducts: (req, res) => {
@@ -8,10 +9,22 @@ module.exports = db => {
         .catch(error => res.status(500).send(error))
     },
     getUserProducts: (req, res) => {
-      const { id } = req.params
-      Product.findByUserId(id)
+      const { id: userId } = req.params
+      User.findById(userId)
         .then(result => {
-          res.status(200).json(result)
+          if (!result) {
+            return res.status(404).json({ error: 'User not found' })
+          }
+          Product.findAllByUserId(userId)
+            .then(result => {
+              res.status(200).json(result)
+            })
+            .catch(error => {
+              console.error('Internal server error:', error)
+              res
+                .status(500)
+                .json({ error: error.message || 'Internal server error' })
+            })
         })
         .catch(error => {
           console.error('Internal server error:', error)

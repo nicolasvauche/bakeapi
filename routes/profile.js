@@ -8,6 +8,8 @@ module.exports = db => {
    * @openapi
    * /profile:
    *   get:
+   *     security:
+   *       - BearerAuth: []
    *     tags:
    *       - Profile
    *     summary: Détails de l'utilisateur connecté
@@ -61,6 +63,8 @@ module.exports = db => {
    * @openapi
    * /profile/products:
    *   get:
+   *     security:
+   *       - BearerAuth: []
    *     tags:
    *       - Profile
    *     summary: Liste tous les produits de l'utilisateur connecté

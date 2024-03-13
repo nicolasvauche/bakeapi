@@ -95,6 +95,17 @@ module.exports = db => {
    *                     type: string
    *                     description: Le statut du produit
    *                     example: En vente
+   *       404:
+   *         description: Utilisateur non trouvé
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 error:
+   *                   type: string
+   *                   description: Le message d'erreur
+   *                   example: User not found
    */
   router.get('/user/:id', productController.getUserProducts)
 
@@ -155,6 +166,8 @@ module.exports = db => {
    * @openapi
    * /products:
    *   post:
+   *     security:
+   *       - BearerAuth: []
    *     tags:
    *       - Products
    *     summary: Ajoute un nouveau produit
@@ -219,6 +232,8 @@ module.exports = db => {
    * @openapi
    * /products/{id}:
    *   put:
+   *     security:
+   *       - BearerAuth: []
    *     tags:
    *       - Products
    *     summary: Met à jour un produit existant par son ID
@@ -301,6 +316,8 @@ module.exports = db => {
    * @openapi
    * /products/{id}:
    *   delete:
+   *     security:
+   *       - BearerAuth: []
    *     tags:
    *       - Products
    *     summary: Supprime un produit par son ID

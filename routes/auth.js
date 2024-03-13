@@ -5,7 +5,7 @@ module.exports = db => {
 
   /**
    * @openapi
-   * /auth/login:
+   * /login:
    *   post:
    *     tags:
    *       - Authentication

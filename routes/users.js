@@ -9,6 +9,8 @@ module.exports = db => {
    * @openapi
    * /users:
    *   get:
+   *     security:
+   *       - BearerAuth: []
    *     tags:
    *       - Users
    *     summary: Liste tous les utilisateurs
@@ -59,6 +61,8 @@ module.exports = db => {
    * @openapi
    * /users/{id}:
    *   get:
+   *     security:
+   *       - BearerAuth: []
    *     tags:
    *       - Users
    *     summary: Détails d'un utilisateur
@@ -108,6 +112,8 @@ module.exports = db => {
    * @openapi
    * /users:
    *   post:
+   *     security:
+   *       - BearerAuth: []
    *     tags:
    *       - Users
    *     summary: Ajoute un nouvel utilisateur

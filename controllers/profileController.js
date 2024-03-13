@@ -23,7 +23,7 @@ module.exports = db => {
     },
     getProducts: (req, res) => {
       const { _id } = req.userInfos
-      Product.findByUserId(_id)
+      Product.findAllByUserId(_id)
         .then(result => {
           res.status(200).json(result)
         })
