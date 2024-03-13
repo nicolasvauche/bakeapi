@@ -7,10 +7,6 @@ module.exports = db => {
       const { _id } = req.userInfos
       User.findById(_id)
         .then(result => {
-          if (!result) {
-            return res.status(404).json({ error: 'User not found' })
-          }
-
           const { password, ...user } = result
           res.status(200).json(user)
         })
@@ -33,6 +29,6 @@ module.exports = db => {
             .status(500)
             .json({ error: error.message || 'Internal server error' })
         })
-    },
+    }
   }
 }
