@@ -12,7 +12,13 @@ const rules = [
   body('name')
     .if(body('name').exists())
     .notEmpty()
-    .withMessage('Name must not be empty')
+    .withMessage('Name must not be empty'),
+  body('status')
+    .if(body('status').exists())
+    .notEmpty()
+    .withMessage('Status must not be empty')
+    .isIn(['En vente', 'Invendu'])
+    .withMessage('Status must be either "En vente" or "Invendu"')
 ]
 
 const resultCheck = (req, res, next) => {

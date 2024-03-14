@@ -4,6 +4,7 @@ module.exports = db => {
   const productController = require('../controllers/productController')(db)
   const auth = require('../middlewares/auth')
   const sanitize = require('../middlewares/sanitize')
+  const validateFields = require('../middlewares/validate')
 
   /**
    * @openapi
@@ -227,7 +228,7 @@ module.exports = db => {
    *                   type: string
    *                   description: Le message d'erreur
    */
-  router.post('/', auth, sanitize, productController.addProduct)
+  router.post('/', auth, sanitize, validateFields, productController.addProduct)
 
   /**
    * @openapi
@@ -311,7 +312,13 @@ module.exports = db => {
    *                   type: string
    *                   description: Le message d'erreur
    */
-  router.put('/:id', auth, sanitize, productController.editProduct)
+  router.put(
+    '/:id',
+    auth,
+    sanitize,
+    validateFields,
+    productController.editProduct
+  )
 
   /**
    * @openapi
