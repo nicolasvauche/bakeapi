@@ -3,6 +3,7 @@ module.exports = db => {
   const router = express.Router()
   const authController = require('../controllers/authController')(db)
   const sanitize = require('../middlewares/sanitize')
+  const validateFields = require('../middlewares/validate')
 
   /**
    * @openapi
@@ -72,7 +73,7 @@ module.exports = db => {
    *                   type: string
    *                   description: Le message d'erreur
    */
-  router.post('/', sanitize, authController.login)
+  router.post('/', sanitize, validateFields, authController.login)
 
   return router
 }
